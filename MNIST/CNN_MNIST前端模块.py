@@ -39,7 +39,7 @@ class Net(nn.Module):
 
 #定义模型与加载参数进入模型,把模型调整到预测模式,参数控制
 model=Net()
-model.load_state_dict(torch.load("CNN_MNIST_model.pth"))#这是微调过的参数文件
+model.load_state_dict(torch.load("CNN_MNIST_modelpro.pth"))#这是微调过的参数文件
 model.eval()
 recent_preds=[]
 N=5
