@@ -7,13 +7,13 @@ import torch.optim as optim
 
 # 图像预处理：灰度化 + 转 tensor
 transform = transforms.Compose([
-    transforms.Grayscale(),  # 确保灰度
+    transforms.Grayscale(),
     transforms.Resize((28, 28)),
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))
 ])
 
-# 加载新采集的数据
+# 加载新采集的，用于微调的数据
 dataset = ImageFolder(
     root="D:\\PythonAI\\MNIST\\MNIST_Pro_digits",
     transform=transform
@@ -62,7 +62,7 @@ class Net(nn.Module):
         return x
 
 
-# 设置为训练模式,加载原始 MNIST 模型
+# 设置为训练模式,加载原始MNIST参数，设定对象
 model = Net()
 model.load_state_dict(torch.load("CNN_MNIST_modelpro.pth"))
 model.train()
@@ -70,8 +70,10 @@ model.train()
 # 损失函数和优化器, 学习率要小，避免破坏原模型
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.001)
-epochs = 10 # 微调不需要多轮
+epochs = 10
+# 微调不需要多轮
 
+#训练循环
 for epoch in range(epochs):
     total_loss = 0
     for x, y in dataloader:
@@ -90,3 +92,4 @@ for epoch in range(epochs):
 # 保存微调后的模型
 torch.save(model.state_dict(), "CNN_MNIST_modelpro.pth")
 print("微调完成！模型已保存！")
+print("本次训练结束。。。。。")
