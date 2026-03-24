@@ -13,13 +13,14 @@ transform=transforms.Compose([
     transforms.Normalize((0.1307,), (0.3081,))
 ])
 
-#数据的集合
+#数据的集合，
 dataset=datasets.MNIST(
     root='./data',
     train=True,
     transform=transform,
     download=True,
 )
+#分批送入，64张为一批
 train_loader=DataLoader(
     dataset,
     batch_size=64,
@@ -66,12 +67,11 @@ learningrate=0.01
 epochs=15
 total_loss=0
 loss_list=[]
-
 #定义参数更新器与loss计算器,加载最新参数
 model=Net()
 model.load_state_dict(torch.load('CNN_MNIST_model.pth'))
 optimizer=optim.SGD(model.parameters(),lr=learningrate)
-criterion=nn.CrossEntropyLoss()#交叉熵损失函数
+criterion=nn.CrossEntropyLoss()#交叉熵损失函数计算loss
 
 #训练循环
 for epoch in range(epochs):
