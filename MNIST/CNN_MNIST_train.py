@@ -64,7 +64,7 @@ class Net(nn.Module):
 
 #参数的设定
 learningrate=0.01
-epochs=15
+epochs=5
 total_loss=0
 loss_list=[]
 #定义参数更新器与loss计算器,加载最新参数
